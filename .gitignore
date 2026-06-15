@@ -1,6 +1,7 @@
 node_modules/
 coverage/
 dist/
+generated/
 .env
 *.DS_Store
 bin/
