@@ -5,6 +5,7 @@ import compression from 'compression'
 import routesV1 from './common/routesV1'
 import routesV2 from './common/routesV2'
 import unknownEndpoint from './middlewares/unknownEndpoint'
+import webhooksController from './resources/webhooks/controller'
 
 // to use env variables
 import './common/env'
@@ -22,6 +23,9 @@ app.use(
     limit: process.env.REQUEST_LIMIT || '100kb',
   }),
 )
+
+app.post('/v1/stripe/webhooks', express.raw({ type: 'application/json' }), webhooksController.receiveUpdates)
+
 app.use(express.json())
 
 // health check
