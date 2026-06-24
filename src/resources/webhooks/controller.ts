@@ -21,8 +21,10 @@ const receiveUpdates = async (request: Request, response: Response) => {
   // Handle the event
   switch (event.type) {
     // payment_intent.succeeded, charge.succeeded, payment_intent.created,
-    case 'checkout.session.completed':
+    case 'checkout.session.completed': {
       const paymentIntent = event.data.object
+      // Use pino logger for logging instead of plain console.log
+      // logger.info(`PaymentIntent for ${paymentIntent.amount} was successful!`)
       console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`)
       const lineItems = await stripe.checkout.sessions.listLineItems(event.data.object.id, {
         expand: ['data.price.product'],
@@ -67,6 +69,7 @@ const receiveUpdates = async (request: Request, response: Response) => {
         })
       }
 
+      // In real life, you would want to split this file into separate files dedicated to it's one task each. E.g. email service, order service, etc.
       const itemsHtml = orderDetails
         .map(
           (item) =>
@@ -91,11 +94,12 @@ const receiveUpdates = async (request: Request, response: Response) => {
       // handlePaymentIntentSucceeded(paymentIntent);
 
       break
-    case 'checkout.session.expired':
-      const paymentMethod = event.data.object
+    }
+    case 'checkout.session.expired': {
       // Then define and call a method to handle the successful attachment of a PaymentMethod.
       // handlePaymentMethodAttached(paymentMethod);
       break
+    }
     default:
       // Unexpected event type
       console.log(`Unhandled event type ${event.type}.`)

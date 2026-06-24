@@ -1,3 +1,4 @@
+// Remove this file and all related code from the project.
 import { Router } from 'express'
 
 const router: Router = Router()

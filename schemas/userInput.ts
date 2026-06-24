@@ -1,5 +1,6 @@
 import z from 'zod'
 
+// These 2 schemas should not be in this project, they were only used for the first assignment unrelated to this project.
 export const UserInputSchemaV1 = z.object({
   username: z
     .string()

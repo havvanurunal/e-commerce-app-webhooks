@@ -17,6 +17,7 @@ model Product {
   stock              Int
   category           String
   images             String[]
+  // userId is removed from schema in the nextjs project, make sure that both of the schemas are identical
   userId             String
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
@@ -24,6 +25,7 @@ model Product {
   stripePriceId      String
 }
 
+// NextjS project is missing order and order items schemas, ideally you want to add them and show order information to logged in users. This project misses User schema and the relationship between user and order.
 model Order {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
   userId     String
