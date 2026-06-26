@@ -57,11 +57,8 @@ const receiveUpdates = async (request: Request, response: Response) => {
         await prisma.orderItem.create({
           data: {
             order: { connect: { id: order.id } },
-            productName: dbProduct.productName,
-            productBrand: dbProduct.productBrand,
-            productDescription: dbProduct.productDescription,
+            product: { connect: { id: dbProduct.id } },
             price: dbProduct.price,
-            images: dbProduct.images,
             quantity: lineItem.quantity,
           },
         })

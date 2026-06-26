@@ -1,7 +1,7 @@
 {
-  "name": "express-demo",
+  "name": "e-commerce-app-webhooks",
   "version": "1.0.6",
-  "description": "Demo Express project with Typescript + Express + Pino ",
+  "description": "Webhooks Express project with Typescript + Express + Pino ",
   "bin": "./bin/script.js",
   "main": "dist/server.js",
   "scripts": {

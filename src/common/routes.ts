@@ -3,9 +3,9 @@ import { Router } from 'express'
 const router: Router = Router()
 
 // import routes
-import routesV2 from '../resources/usersV2/routes'
+import routes from '../resources/users/routes'
 
 // Higher level routes definition
-router.use('/users', routesV2)
+router.use('/users', routes)
 
 export default router

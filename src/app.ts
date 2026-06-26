@@ -2,13 +2,12 @@ import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import compression from 'compression'
-import routesV1 from './common/routesV1'
-import routesV2 from './common/routesV2'
 import unknownEndpoint from './middlewares/unknownEndpoint'
 import webhooksController from './resources/webhooks/controller'
 
 // to use env variables
 import './common/env'
+import routes from './common/routes'
 
 const app: Application = express()
 
@@ -35,8 +34,7 @@ app.get('/', (req: Request, res: Response) => {
   })
 })
 
-app.use('/v1/', routesV1)
-app.use('/v2/', routesV2)
+app.use('/v1/', routes)
 
 // Handle unknown endpoints
 app.use('*', unknownEndpoint)
