@@ -9,7 +9,6 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended',
     'plugin:prettier/recommended', // Use Prettier recommended config
   ],
   plugins: ['@typescript-eslint', 'prettier'],
@@ -20,6 +19,6 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
+    semi: ['error', 'never'],
   },
-  semi: 'always'
-};
+}
