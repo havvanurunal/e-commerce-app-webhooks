@@ -20,8 +20,8 @@ model User {
   auth0UserId      String   @unique
   email            String   @unique
   emailVerified    Boolean  @default(false)
-  firstname        String
-  lastname         String
+  firstname        String?
+  lastname         String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   marketingConsent Boolean  @default(false)
