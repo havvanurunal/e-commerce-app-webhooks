@@ -22,7 +22,7 @@ app.use(
   }),
 )
 
-app.post('/v1/stripe/webhooks', express.raw({ type: 'application/json' }), webhooksController.receiveUpdates)
+app.post('/stripe/webhooks', express.raw({ type: 'application/json' }), webhooksController.receiveUpdates)
 
 app.use(express.json())
 
