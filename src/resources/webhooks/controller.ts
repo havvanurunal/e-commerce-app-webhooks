@@ -36,6 +36,29 @@ const receiveUpdates = async (request: Request, response: Response) => {
       break
     }
 
+    case 'charge.succeeded': {
+      const charge = event.data.object
+      logger.info(`Charge succeeded: ${charge.id}.`)
+      break
+    }
+    case 'charge.updated': {
+      const charge = event.data.object
+      logger.info(`Charge updated: ${charge.id}.`)
+      break
+    }
+
+    case 'payment_intent.created': {
+      const paymentIntent = event.data.object
+      logger.info(`Payment intent created: ${paymentIntent.id}.`)
+      break
+    }
+
+    case 'payment_intent.succeeded': {
+      const paymentIntent = event.data.object
+      logger.info(`Payment intent succeeded: ${paymentIntent.id}.`)
+      break
+    }
+
     default:
       logger.info(`Unhandled event type ${event.type}.`)
   }
