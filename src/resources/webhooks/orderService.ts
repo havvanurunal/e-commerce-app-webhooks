@@ -9,7 +9,12 @@ export interface OrderItemDetail {
   images: string[]
 }
 
-export const createOrderFromSession = async (session: Checkout.Session): Promise<OrderItemDetail[]> => {
+export interface CreateOrderResult {
+  orderId: string
+  items: OrderItemDetail[]
+}
+
+export const createOrderFromSession = async (session: Checkout.Session): Promise<CreateOrderResult> => {
   const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
     expand: ['data.price.product'],
   })
@@ -49,5 +54,5 @@ export const createOrderFromSession = async (session: Checkout.Session): Promise
       },
     })
   }
-  return orderDetails
+  return { orderId: order.id, items: orderDetails }
 }

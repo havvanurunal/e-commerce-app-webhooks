@@ -22,10 +22,10 @@ const receiveUpdates = async (request: Request, response: Response) => {
       const session = event.data.object
       logger.info(`Checkout session ${session.id} completed.`)
 
-      const orderDetails = await createOrderFromSession(session)
+      const { orderId, items } = await createOrderFromSession(session)
       const totalAmount = session.amount_total / 100
 
-      await sendOrderConfirmationEmail(session.customer_details.email, orderDetails, totalAmount)
+      await sendOrderConfirmationEmail(session.customer_details.email, orderId, items, totalAmount)
 
       break
     }
