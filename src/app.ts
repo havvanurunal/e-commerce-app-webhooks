@@ -7,7 +7,6 @@ import webhooksController from './resources/webhooks/controller'
 
 // to use env variables
 import './common/env'
-import routes from './common/routes'
 
 const app: Application = express()
 
@@ -23,7 +22,7 @@ app.use(
   }),
 )
 
-app.post('/v1/stripe/webhooks', express.raw({ type: 'application/json' }), webhooksController.receiveUpdates)
+app.post('/stripe/webhooks', express.raw({ type: 'application/json' }), webhooksController.receiveUpdates)
 
 app.use(express.json())
 
@@ -33,8 +32,6 @@ app.get('/', (req: Request, res: Response) => {
     'health-check': 'OK: top level api working',
   })
 })
-
-app.use('/v1/', routes)
 
 // Handle unknown endpoints
 app.use('*', unknownEndpoint)

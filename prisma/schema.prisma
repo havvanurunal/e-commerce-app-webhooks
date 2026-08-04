@@ -20,13 +20,15 @@ model User {
   auth0UserId      String   @unique
   email            String   @unique
   emailVerified    Boolean  @default(false)
-  firstname        String
-  lastname         String
+  firstname        String?
+  lastname         String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+  marketingConsent Boolean  @default(false)
   address          Address?
   orders           Order[]
-  marketingConsent Boolean  @default(false)
+  cart             Cart?    @relation(fields: [cartId], references: [id])
+  cartId           String?  @db.ObjectId
 
   @@map("users")
 }
@@ -44,14 +46,37 @@ model Product {
   updatedAt          DateTime    @updatedAt
   stripeProductId    String      @unique
   stripePriceId      String
+  cartItems          CartItem[]
   orderItems         OrderItem[]
 
   @@map("products")
 }
 
+model Cart {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+  users     User[]
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  cartId    String  @db.ObjectId
+  productId String  @db.ObjectId
+  quantity  Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("cart_items")
+}
+
 model Order {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String      @unique @db.ObjectId
+  userId     String      @db.ObjectId
   user       User        @relation(fields: [userId], references: [id])
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
