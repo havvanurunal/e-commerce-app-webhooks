@@ -2,8 +2,6 @@ import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import compression from 'compression'
-import routesV1 from './common/routesV1'
-import routesV2 from './common/routesV2'
 import unknownEndpoint from './middlewares/unknownEndpoint'
 import webhooksController from './resources/webhooks/controller'
 
@@ -24,7 +22,7 @@ app.use(
   }),
 )
 
-app.post('/v1/stripe/webhooks', express.raw({ type: 'application/json' }), webhooksController.receiveUpdates)
+app.post('/stripe/webhooks', express.raw({ type: 'application/json' }), webhooksController.receiveUpdates)
 
 app.use(express.json())
 
@@ -34,9 +32,6 @@ app.get('/', (req: Request, res: Response) => {
     'health-check': 'OK: top level api working',
   })
 })
-
-app.use('/v1/', routesV1)
-app.use('/v2/', routesV2)
 
 // Handle unknown endpoints
 app.use('*', unknownEndpoint)
